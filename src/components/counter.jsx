@@ -50,24 +50,36 @@ class Counter extends Component {
   render() {
     // console.log("Props", this.props.id);
     return (
-      <div>
-        <span className="badge badge-primary m-2">
-          {this.props.counter.name}
-        </span>
-        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm m-2"
-        >
-          +
-        </button>
-        <button className="btn btn-secondary btn-sm m-2">-</button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          x
-        </button>
+      <div className="row">
+        <div className="col-1">
+          <span className="badge badge-primary m-2">
+            {this.props.counter.name}
+          </span>
+        </div>
+        <div className="col-1">
+          <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        </div>
+        <div className="col">
+          <button
+            onClick={() => this.props.onIncrement(this.props.counter)}
+            className="btn btn-secondary btn-sm m-2"
+          >
+            +
+          </button>
+          <button
+            onClick={() => this.props.onDecrement(this.props.counter)}
+            className="btn btn-secondary btn-sm m-2"
+            disabled={this.props.counter.value === 0 ? "disabled" : ""}
+          >
+            -
+          </button>
+          <button
+            onClick={() => this.props.onDelete(this.props.counter.id)}
+            className="btn btn-danger btn-sm m-2"
+          >
+            x
+          </button>
+        </div>
       </div>
     );
   }
@@ -76,6 +88,10 @@ class Counter extends Component {
     let classes = "badge m-2 badge-";
     classes += this.props.counter.value === 0 ? "warning" : "primary";
     return classes;
+  }
+
+  getDecrementBtnClasses() {
+    let classes = "badge m-2 badge-";
   }
 
   formatCount() {
